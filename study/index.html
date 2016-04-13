@@ -7,7 +7,8 @@
 <body>
 <div ng-controller="helloController">
     {{username}}
-    <input type="text" ng-model="username"/>
+    <input type="text" ng-model="username" />
+    <input type="text" value={{username}} /><!--这是单向绑定：模型改变视图-->
 </div>
 </body>
 <script src="angular.js"></script>
@@ -16,7 +17,7 @@
     //定义一个控制器
     angular.module('qiqiMod').controller('helloController',function($timeout,$scope){
 
-        $scope.username='asd';
+        $scope.username='asdasd';
         /*$timeout(function(){//就是对timeour的封装，但比原生的多了一个刷新视图的操作
             $scope.username=new Date().toLocaleString();
         },1000)*/

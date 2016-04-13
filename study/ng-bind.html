@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="qiqiMod">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div ng-controller="helloController">
+    {{username}}
+    <span ng-bind="username"></span><!--把内容绑定到username-->
+    <button ng-click="clickMe(age)">点我</button>
+    <input type="text" ng-model="age"><!--视图改变模型-->
+</div>
+
+</body>
+<script src="angular.js"></script>
+<script>
+    angular.module('qiqiMod', []); //第二个参数是模块依赖的其他模块；可以定义很多模块
+    //定义一个控制器
+    angular.module('qiqiMod').controller('helloController', function ($timeout, $scope) {
+
+        $scope.username = 'asdasd';
+        /*$timeout(function(){//就是对timeour的封装，但比原生的多了一个刷新视图的操作
+         $scope.username=new Date().toLocaleString();
+         },1000)*/
+        $scope.age
+        $scope.clickMe=function(s){
+            alert(s)
+        }
+    })
+
+</script>
+</html>
