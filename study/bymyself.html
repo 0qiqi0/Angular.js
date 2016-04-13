@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="qiqiMod">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div ng-controller="helloController">
+    {{username}}
+    {{age}}
+    <input type="text" name="age" id="age" ng-bind="age"/>
+</div>
+</body>
+<script src="angular.js"></script>
+<script>
+    angular.module('qiqiMod',[]); //第二个参数是模块依赖的其他模块；可以定义很多模块
+    //定义一个控制器
+    angular.module('qiqiMod').controller('helloController',function($scope,$http){
+
+        $scope.username='asd';
+        $scope.age='asd';
+        $http('get','index.json',function(data){
+           // $scope.age=data.toString();
+        })
+    })
+
+</script>
+</html>
