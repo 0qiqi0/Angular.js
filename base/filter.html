@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="qiqiMod">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="bootstrap.css"/>
+</head>
+<body>
+    <div ng-controller="qiqiController" class="container">
+        {{13000000|date}};
+        {{13000000|date:'yyyy-mm-dd hh:mm:ss'}};
+
+        {{'100'|number}}
+        {{'100.111'|number:2}}<br>
+        {{{name:'qiqi'}|json}}<br>
+        {{'AAAAAA'|lowercase}}
+        {{'abcde'|upperSome:2:2}}
+        <ul>
+            <li ng-repeat="book in books | limitTo:2 | orderBy:ob">{{book.name}}</li>
+        </ul>
+    </div>
+</body>
+<script src="angular.js"></script>
+<script>
+    angular.module('qiqiMod',[]);
+    //定义过滤器
+    angular.module('qiqiMod').filter('upperSome',function(){
+        /*return function(input,length){
+            return input.slice(0,length).toUpperCase()+input.slice(length-1);
+        }*/
+        return function(input,front,end){
+             return input.slice(0,front).toUpperCase()+input.slice(front,end*-1)+input.slice(end*-1).toUpperCase();
+         }
+    });
+    angular.module('qiqiMod').controller('qiqiController',function($scope){
+        $scope.books=[{name:'node',price:5},{name:'js',price:8}]
+        $scope.ob='-price';
+    })
+
+</script>
+</html>

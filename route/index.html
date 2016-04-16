@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="qiqiMod">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../base/bootstrap.css"/>
+    <title></title>
+</head>
+<body>
+    <ul class="nav nav-pills">
+        <li role="presentation" class="active"><a href="#/list">列表页</a></li>
+        <li role="presentation"><a href="#/detail">详情页</a></li>
+    </ul>
+
+</body>
+<div ng-view></div>
+<script src="../base/angular.js"></script>
+<script src="angular-route.js"></script>
+<script>
+    angular.module('qiqiMod',['ngRoute'])//依赖其他的模块
+    angular.module('qiqiMod').controller('listController',function($scope,$http){
+        $http.get('books.json').success(function(data){
+            $scope.books = data;
+        })
+    })
+    angular.module('qiqiMod').controller('detailController',function($scope,$routeParams,$http){
+        //从路径中得带id
+        var bookId = $routeParams.bookId
+        //通过ajax获得所有的书，并且取得id对应的书籍对象
+        $http.get('books.json').success(function(data){
+            $scope.book=data.filter(function(book){
+                return book.id == bookId;
+            })[0];
+        });
+    });
+    //配置路哟,config
+    //factory调用的也是provider
+    angular.module('qiqiMod').config(function($routeProvider){
+        $routeProvider.when('/list',{
+            templateUrl:'list.html', //模板和数据被取出后渲染，在前端
+            controller:'listController' //控制器用来提供数据
+        }).when('/detail/:bookId',{
+            templateUrl:'detail.html',
+            controller:'detailController'
+        }).otherwise({
+            redirectTo:'/list'
+        });
+    });
+</script>
+</html>
