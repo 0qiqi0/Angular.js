@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="qiqiMod">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="bootstrap.css"/>
+</head>
+<body ng-controller="qiqiController">
+{{he}}
+    <div class="container">
+        <table class="table table-responsive">
+            <tr>
+                <td>书名</td>
+                <td>价格</td>
+            </tr>
+            <tr ng-repeat="s in content">
+                <td>{{s.name}}</td>
+                <td><input type="text"  ng-model="s.price"></td>
+            </tr>
+            <tr>
+                <td>原价{{cc()}}</td>
+                <td>折扣：<input type="text" value="discount" ng-model="discount"></td>
+                <td>{{cc()*(discount)}}</td>
+            </tr>
+        </table>
+    </div>
+<body ng-controller="qiqiController">
+{{he}}
+</div>
+</body>
+<script src="angular.js"></script>
+<script>
+    //服务是单例的。
+    angular.module('qiqiMod',[]);
+    angular.module('qiqiMod').controller('qiqiController',function($scope,$http){
+        $scope.name='qiqi';
+       // $http.c=0;
+        if($http.count){
+            $http.count=$http.count+1;
+        }else{
+            $http.count=1;
+        }
+        $scope.he=$http.count
+        $http.get('books.json').success(function(a){
+            $scope.content=a;
+        })
+        $scope.cc=function(){
+            var sum=0;
+            //content.forEach(function(s){
+            $scope.content.forEach(function(s){
+                    sum+= Number(s.price);
+                })
+            return sum;
+            }
+    })
+
+</script>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="qiqiMod">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="bootstrap.css"/>
+</head>
+<body ng-controller="qiqiController">
+    <table class="table table-responsive">
+        <tr>
+            <th>书名</th>
+            <th>操作</th>
+        </tr>
+        <tr ng-repeat="book in books">
+            <td>{{book}}</td>
+            <td><button ng-click="delete($index)">删除</button></td>
+        </tr>
+    </table>
+    <input type="text" ng-model="newbook"/>
+    <button  ng-click="add(newbook)">添加</button>
+</body>
+<script src="angular.js"></script>
+<script>
+    angular.module('qiqiMod',[]);
+    angular.module('qiqiMod').factory('bookservice',function(){
+        //工厂函数一般都要return一个对象回来
+       //实现资源的共享
+        var books=['node','js'];
+        return {
+            list: function(){
+                return books;
+            },
+            add:function(bookname){
+                books.push(bookname);//模型改变视图
+                //return books;
+            },
+            delete:function(index){
+                books.splice(index,1);
+            }
+        }
+    })
+    angular.module('qiqiMod').controller('qiqiController',function($scope,bookservice){
+        $scope.books=bookservice.list();//自己写的服务不加$
+        $scope.newbook='';
+        $scope.add=bookservice.add;
+        $scope.delete=bookservice.delete;
+    })
+
+</script>
+</html>

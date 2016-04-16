@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="qiqiMod">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="bootstrap.css"/>
+</head>
+<body ng-controller="qiqiController">
+<div ng-init="show=true"  ng-if="show">
+    {{name}}
+</div>
+<button ng-click="show = !show">转换</button>
+<div ng-show="show">ng-show</div>
+<div ng-hide="show">ng-hide</div>
+
+</body>
+<script src="angular.js"></script>
+<script>
+    angular.module('qiqiMod',[]);
+    angular.module('qiqiMod').controller('qiqiController',function($scope){
+        $scope.name='qiqi';
+        $scopecli=function(){
+
+        }
+
+    })
+
+</script>
+</html>
