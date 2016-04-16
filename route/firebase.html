@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="qiqiMod">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../base/bootstrap.css"/>
+    <title></title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" ng-controller="qiqiController">
+            <input type="text" ng-model="book.name"/>
+            <input type="text" ng-model="book.price"/>
+            <button class="btn btn-success" ng-click="add()">增加</button>
+            <ul>
+                <li ng-repeat="book in books">{{book.name}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+<div ng-view></div>
+<script src="../base/angular.js"></script>
+<script src="firebase.js"></script>
+<script src="angularfire.js"></script>
+<script>
+    angular.module('qiqiMod',['firebase'])//依赖其他的模块
+    angular.module('qiqiMod').controller('qiqiController',function($scope,$firebaseArray){
+        $scope.book = {};
+        //引入angularfire后也提供了很多服务
+        //firebase-web.js是firebase原生的api，angularfire做了适配
+        //创建一个firebase数据库
+        var base = new Firebase('https://sizzling-heat-3542.firebaseio.com/zhangrenyang');
+        //得到了一个可以操作数据库的对象
+        var bookBase = $firebaseArray(base);
+        $scope.books=bookBase;
+        $scope.add=function(){
+            bookBase.$add($scope.book)
+        }
+
+    })
+</script>
+</html>
